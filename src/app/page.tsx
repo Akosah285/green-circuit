@@ -114,7 +114,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="border-t border-neutral-800/80 pt-6 text-xs font-mono text-neutral-500 flex justify-between">
-        <span>© {new Date().getFullYear()} Akwasi Akosah</span>
+        <span>© 2026 Akwasi Akosah</span>
       </footer>
     </main>
   );
