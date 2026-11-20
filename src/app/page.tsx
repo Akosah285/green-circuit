@@ -14,10 +14,9 @@ const projects = [
     title: "System Lab",
     tag: "Coming in Checkpoint 4",
     description: "Serverless API endpoints and interactive data workflows.",
-    href: "#lab",
+    href: "/lab",
   },
 ];
-
 export default function Home() {
   return (
     <main className="min-h-screen max-w-4xl mx-auto px-6 py-20 flex flex-col justify-between">
