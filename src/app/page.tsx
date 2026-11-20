@@ -1,119 +1,127 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Terminal, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Compass } from "lucide-react";
+import { Navbar } from "@/components/Navbar";
+import { profile, projects } from "@/data/portfolio";
 
-const projects = [
-  {
-    title: "Green Circuit",
-    tag: "Cloud & Next.js",
-    description: "Automated CI/CD personal web platform deployed on Azure Static Web Apps.",
-    href: "https://github.com/Akosah285/green-circuit",
-  },
-  {
-    title: "System Lab",
-    tag: "Coming in Checkpoint 4",
-    description: "Serverless API endpoints and interactive data workflows.",
-    href: "/lab",
-  },
-];
 export default function Home() {
+  const featured = projects.slice(0, 2);
+
   return (
-    <main className="min-h-screen max-w-4xl mx-auto px-6 py-20 flex flex-col justify-between">
-      {/* Navigation */}
-      <motion.header
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="flex items-center justify-between border-b border-neutral-800/80 pb-6"
-      >
-        <span className="font-mono text-sm tracking-tight text-emerald-400 flex items-center gap-2">
-          <Terminal className="w-4 h-4" />
-          akwasi.dev
-        </span>
-        <nav className="flex items-center gap-6 text-sm text-neutral-400">
-          <a href="#work" className="hover:text-white transition-colors">
-            Work
-          </a>
+    <main className="min-h-screen max-w-3xl mx-auto px-6 py-16 flex flex-col justify-between">
+      <div>
+        <Navbar />
+
+        {/* Welcoming Hero */}
+        <motion.section
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45 }}
+          className="mt-16"
+        >
+          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-white leading-[1.15]">
+            {profile.headline}
+          </h1>
+          <p className="mt-5 text-base sm:text-lg text-neutral-300 leading-relaxed">
+            {profile.intro}
+          </p>
+
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <Link
+              href="/work"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/25 transition-colors"
+            >
+              Explore Work &amp; Schoolwork
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/journey"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium text-neutral-300 hover:text-white bg-neutral-900 border border-neutral-800 hover:border-neutral-700 transition-colors"
+            >
+              <Compass className="w-4 h-4 text-neutral-400" />
+              Read My Journey
+            </Link>
+          </div>
+        </motion.section>
+
+        {/* Quiet "Currently" Note */}
+        <motion.section
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.1 }}
+          className="mt-14 p-5 rounded-2xl bg-neutral-900/40 border border-neutral-800/80"
+        >
+          <span className="text-xs font-mono uppercase tracking-wider text-emerald-400">
+            Currently
+          </span>
+          <p className="mt-1.5 text-sm text-neutral-300 leading-relaxed">
+            {profile.currently}
+          </p>
+        </motion.section>
+
+        {/* Selected Highlights (Max 2 Cards to Keep It Clean) */}
+        <motion.section
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.2 }}
+          className="mt-14"
+        >
+          <div className="flex items-center justify-between mb-5">
+            <h2 className="text-sm font-mono uppercase tracking-wider text-neutral-400">
+              Selected Highlights
+            </h2>
+            <Link
+              href="/work"
+              className="text-xs font-mono text-emerald-400 hover:underline"
+            >
+              View all ({projects.length}) →
+            </Link>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-4">
+            {featured.map((item) => (
+              <Link
+                key={item.slug}
+                href={`/work#${item.slug}`}
+                className="group p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800 hover:border-emerald-500/40 transition-all"
+              >
+                <div className="flex items-center justify-between text-xs font-mono text-emerald-400">
+                  <span>{item.category}</span>
+                  <ArrowUpRight className="w-4 h-4 text-neutral-500 group-hover:text-emerald-400 transition-colors" />
+                </div>
+                <h3 className="mt-3 text-lg font-semibold text-white">
+                  {item.title}
+                </h3>
+                <p className="mt-2 text-sm text-neutral-400 leading-relaxed">
+                  {item.summary}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </motion.section>
+      </div>
+
+      {/* Quiet Footer */}
+      <footer className="mt-20 border-t border-neutral-800/80 pt-6 text-xs font-mono text-neutral-500 flex flex-wrap items-center justify-between gap-4">
+        <span>© 2026 {profile.name}</span>
+        <div className="flex items-center gap-5">
           <a
-            href="https://github.com/Akosah285"
+            href={profile.github}
             target="_blank"
             rel="noreferrer"
-            className="hover:text-white transition-colors flex items-center gap-1.5"
+            className="hover:text-neutral-300 transition-colors"
           >
-            <svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              className="w-4 h-4 fill-current"
-            >
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-              />
-            </svg>
             GitHub
           </a>
-        </nav>
-      </motion.header>
-
-      {/* Hero Section */}
-      <section className="my-20">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-6">
-            <Sparkles className="w-3.5 h-3.5" />
-            Live on Azure Static Web Apps
-          </span>
-          <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-white leading-[1.1]">
-            Building resilient software &amp; cloud experiences.
-          </h1>
-          <p className="mt-6 text-lg text-neutral-400 max-w-2xl leading-relaxed">
-            Welcome to my personal corner of the web—engineered with Next.js, TypeScript, Tailwind CSS, and automated CI/CD pipelines.
-          </p>
-        </motion.div>
-
-        {/* Project Cards */}
-        <motion.div
-          id="work"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.25 }}
-          className="mt-16 grid sm:grid-cols-2 gap-4"
-        >
-          {projects.map((project) => (
-            <a
-              key={project.title}
-              href={project.href}
-              target={project.href.startsWith("http") ? "_blank" : undefined}
-              rel="noreferrer"
-              className="group p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800 hover:border-emerald-500/50 transition-all duration-300 flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono text-emerald-400">
-                    {project.tag}
-                  </span>
-                  <ArrowUpRight className="w-4 h-4 text-neutral-500 group-hover:text-emerald-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </div>
-                <h2 className="mt-3 text-xl font-semibold text-white">
-                  {project.title}
-                </h2>
-                <p className="mt-2 text-sm text-neutral-400 leading-relaxed">
-                  {project.description}
-                </p>
-              </div>
-            </a>
-          ))}
-        </motion.div>
-      </section>
-
-      {/* Footer */}
-      <footer className="border-t border-neutral-800/80 pt-6 text-xs font-mono text-neutral-500 flex justify-between">
-        <span>© 2026 Akwasi Akosah</span>
+          <a
+            href={profile.email}
+            className="hover:text-neutral-300 transition-colors"
+          >
+            Say Hello
+          </a>
+        </div>
       </footer>
     </main>
   );

@@ -1,0 +1,18 @@
+{
+    "routes": [
+      {
+        "route": "/lab*",
+        "allowedRoles": ["authenticated"]
+      },
+      {
+        "route": "/api/status",
+        "allowedRoles": ["authenticated"]
+      }
+    ],
+    "responseOverrides": {
+      "401": {
+        "statusCode": 302,
+        "redirect": "/.auth/login/github?post_login_redirect_uri=/lab"
+      }
+    }
+  }
