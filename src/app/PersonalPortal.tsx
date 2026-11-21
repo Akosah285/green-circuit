@@ -305,20 +305,46 @@ export function PersonalPortal() {
               <PortalTitleWords text={section.title} />
             </h2>
             <div className="portal-story-bottom">
-              <p>{section.description}</p>
-              <div className="portal-story-actions">
-                <div className="portal-tags" aria-label="Topics">
-                  {section.tags.map((tag) => (
-                    <span key={tag}>{tag}</span>
+              {section.id === "learning" ? (
+                <div className="portal-learning-grid">
+                  {section.reading.map((group) => (
+                    <div className="portal-learning-group" key={group.label}>
+                      <h3>{group.label}</h3>
+                      <ul>
+                        {group.books.map((book) => (
+                          <li key={book.title}>
+                            <span className="portal-book-title">{book.title}</span>
+                            <span className="portal-book-author">{book.author}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   ))}
+                  <div className="portal-learning-group">
+                    <h3>Exploring</h3>
+                    <ul>
+                      {section.tags.map((topic) => <li key={topic}>{topic}</li>)}
+                    </ul>
+                  </div>
                 </div>
-                {"href" in section && section.href && (
-                  <Link href={section.href} className="portal-section-link">
-                    {section.action}
-                    <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                  </Link>
-                )}
-              </div>
+              ) : (
+                <>
+                  <p>{section.description}</p>
+                  <div className="portal-story-actions">
+                    <div className="portal-tags" aria-label="Topics">
+                      {section.tags.map((tag) => (
+                        <span key={tag}>{tag}</span>
+                      ))}
+                    </div>
+                    {"href" in section && section.href && (
+                      <Link href={section.href} className="portal-section-link">
+                        {section.action}
+                        <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                      </Link>
+                    )}
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </section>

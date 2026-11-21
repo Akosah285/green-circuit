@@ -51,7 +51,7 @@ export const profile = {
   currently:
     "Engineering production software at Microsoft, exploring cloud-native architectures on Azure, and building small, purposeful tools in my personal lab.",
   portalHeading: "I’m Akwasi.",
-  portalIntro: "A Ghanaian software engineer, curious learner, and soccer fan.",
+  portalIntro: "I’m a Ghanaian software engineer who loves learning, sharing ideas, and soccer.",
   portalNote:
     "This is my little corner of the internet for sharing what I’m learning and tinkering with.",
   portalLately:
@@ -67,22 +67,36 @@ export const portalSections = [
     number: "01",
     menuLabel: "Building",
     eyebrow: "What I am building",
-    title: "Useful software, kept deliberately small.",
+    title: "An interactive engineering portfolio.",
     description:
-      "Green Circuit is the open project right now: a personal platform built to be clear, observable, and easy to evolve.",
-    tags: ["Next.js", "Azure", "CI/CD"],
-    href: "/builds",
-    action: "Explore the builds",
+      "A portfolio of engineering coursework, with interactive demos and reflections.",
+    tags: ["Engineering", "Interactive demos", "Coursework"],
+    href: "https://github.com/Akosah285/engineering-portfolio",
+    action: "View the project on GitHub",
   },
   {
     id: "learning",
     number: "02",
     menuLabel: "Learning",
     eyebrow: "What I am learning",
-    title: "Cloud systems, engineering judgment, and better questions.",
-    description:
-      "A running shelf for the ideas shaping how I think about resilient software, useful tools, and the craft between them.",
-    tags: ["Cloud architecture", "Engineering systems", "Learning in public"],
+    title: "Books, ideas, and better questions.",
+    reading: [
+      {
+        label: "Currently reading",
+        books: [
+          { title: "System Design Interview", author: "Alex Xu and Sahn Lam" },
+          { title: "Six Math Essentials", author: "Terence Tao" },
+        ],
+      },
+      {
+        label: "Recent reads",
+        books: [
+          { title: "The Joy of x", author: "Steven Strogatz" },
+          { title: "Transcendent Kingdom", author: "Yaa Gyasi" },
+        ],
+      },
+    ],
+    tags: ["Energy-based reasoning models", "Why LLMs lie", "LLM sycophancy"],
   },
   {
     id: "writing",
@@ -91,18 +105,18 @@ export const portalSections = [
     eyebrow: "What I am writing about",
     title: "Notes from the work, still taking shape.",
     description:
-      "No posts yet. This is where I’ll share short, practical notes from the things I build and learn.",
-    tags: ["Essays", "Field notes"],
+      "Two pieces are in draft as I explore ideas around agents and language models.",
+    tags: ["Draft: The Bouncer Problem — Agent Gateways", "Draft: The Forgetting Machine — LLM Blindspot"],
   },
   {
     id: "beyond",
     number: "04",
     menuLabel: "Beyond work",
     eyebrow: "What I am into",
-    title: "Soccer is never far from the story.",
+    title: "A little beyond the terminal.",
     description:
-      "Outside the terminal: Ghana, the game, and the familiar rhythm of learning something new from people and places.",
-    tags: ["Soccer", "Ghana", "Curiosity"],
+      "Outside of engineering, I’m into soccer, curating music, and video games.",
+    tags: ["Soccer", "Music curation", "Video games"],
     href: "/journey",
     action: "Get to know me",
   },
