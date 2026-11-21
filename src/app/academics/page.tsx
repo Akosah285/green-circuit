@@ -92,8 +92,10 @@ export default function AcademicsPage() {
           </p>
 
           <div className="space-y-3">
-            {courseGroups.map((group) => {
+            {courseGroups.map((group, index) => {
               const isOpen = openPillar === group.pillar;
+              const panelId = `coursework-panel-${index}`;
+              const buttonId = `coursework-toggle-${index}`;
 
               return (
                 <div
@@ -101,38 +103,47 @@ export default function AcademicsPage() {
                   className="rounded-2xl bg-neutral-900/60 border border-neutral-800 overflow-hidden"
                 >
                   <button
+                    id={buttonId}
+                    type="button"
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
                     onClick={() =>
                       setOpenPillar(isOpen ? null : group.pillar)
                     }
                     className="w-full p-5 text-left flex items-center justify-between gap-4 hover:bg-neutral-900/90 transition-colors"
                   >
                     <div>
-                      <h3 className="text-base font-semibold text-white">
+                      <span className="text-base font-semibold text-white">
                         {group.pillar}{" "}
                         <span className="text-xs font-mono font-normal text-neutral-500">
                           ({group.courses.length})
                         </span>
-                      </h3>
+                      </span>
                       <p className="mt-1 text-xs text-neutral-400">
                         {group.summary}
                       </p>
                     </div>
                     {isOpen ? (
-                      <ChevronUp className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <ChevronUp className="w-4 h-4 text-emerald-400 shrink-0" aria-hidden="true" />
                     ) : (
-                      <ChevronDown className="w-4 h-4 text-neutral-500 shrink-0" />
+                      <ChevronDown className="w-4 h-4 text-neutral-500 shrink-0" aria-hidden="true" />
                     )}
                   </button>
 
-                  {isOpen && (
-                    <div className="px-5 pb-5 pt-2 border-t border-neutral-800/80 divide-y divide-neutral-800/50">
+                    <div
+                      id={panelId}
+                      role="region"
+                      aria-labelledby={buttonId}
+                      hidden={!isOpen}
+                      className="px-5 pb-5 pt-2 border-t border-neutral-800/80 divide-y divide-neutral-800/50"
+                    >
                       {group.courses.map((course) => (
                         <div
                           key={course.code}
                           className="py-2.5 flex flex-wrap items-center justify-between gap-2 text-sm"
                         >
-                          <div className="flex items-center gap-3">
-                            <span className="font-mono text-xs text-neutral-500 w-36 shrink-0">
+                          <div className="min-w-0 flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-3">
+                            <span className="font-mono text-xs text-neutral-400 sm:w-36 sm:shrink-0">
                               {course.code}
                             </span>
                             <span className="text-neutral-200">
@@ -147,7 +158,6 @@ export default function AcademicsPage() {
                         </div>
                       ))}
                     </div>
-                  )}
                 </div>
               );
             })}

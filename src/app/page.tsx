@@ -1,13 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Compass } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
-import { profile, projects } from "@/data/portfolio";
+import { profile, projects, projectHref } from "@/data/portfolio";
 
 export default function Home() {
-  const featured = projects.slice(0, 2);
+  const reduceMotion = useReducedMotion();
+  const featured = [
+    projects.find((project) => project.category === "Work & Builds"),
+    projects.find((project) => project.category === "Schoolwork"),
+  ].filter((project) => project !== undefined);
 
   return (
     <main className="min-h-screen max-w-3xl mx-auto px-6 py-16 flex flex-col justify-between">
@@ -16,9 +20,9 @@ export default function Home() {
 
         {/* Welcoming Hero */}
         <motion.section
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45 }}
+          initial={reduceMotion ? false : { y: 14 }}
+          animate={{ y: 0 }}
+          transition={{ duration: reduceMotion ? 0 : 0.45 }}
           className="mt-16"
         >
           <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-white leading-[1.15]">
@@ -30,11 +34,18 @@ export default function Home() {
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <Link
-              href="/work"
+              href="/builds"
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/25 transition-colors"
             >
-              Explore Work &amp; Schoolwork
+              Explore Builds
               <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/schoolwork"
+              className="inline-flex min-h-11 items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium text-neutral-300 hover:text-white bg-neutral-900 border border-neutral-800 hover:border-neutral-700 transition-colors"
+            >
+              Explore Schoolwork
+              <ArrowRight className="w-4 h-4" aria-hidden="true" />
             </Link>
             <Link
               href="/journey"
@@ -47,10 +58,7 @@ export default function Home() {
         </motion.section>
 
         {/* Quiet "Currently" Note */}
-        <motion.section
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, delay: 0.1 }}
+        <section
           className="mt-14 p-5 rounded-2xl bg-neutral-900/40 border border-neutral-800/80"
         >
           <span className="text-xs font-mono uppercase tracking-wider text-emerald-400">
@@ -59,36 +67,28 @@ export default function Home() {
           <p className="mt-1.5 text-sm text-neutral-300 leading-relaxed">
             {profile.currently}
           </p>
-        </motion.section>
+        </section>
 
         {/* Selected Highlights (Max 2 Cards to Keep It Clean) */}
-        <motion.section
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, delay: 0.2 }}
+        <section
           className="mt-14"
         >
           <div className="flex items-center justify-between mb-5">
             <h2 className="text-sm font-mono uppercase tracking-wider text-neutral-400">
               Selected Highlights
             </h2>
-            <Link
-              href="/work"
-              className="text-xs font-mono text-emerald-400 hover:underline"
-            >
-              View all ({projects.length}) →
-            </Link>
+            <span className="text-xs text-neutral-400">One build, one school project</span>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4">
             {featured.map((item) => (
               <Link
                 key={item.slug}
-                href={`/work#${item.slug}`}
-                className="group p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800 hover:border-emerald-500/40 transition-all"
+                href={projectHref(item)}
+                className="group p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800 hover:border-emerald-500/40 transition-colors"
               >
                 <div className="flex items-center justify-between text-xs font-mono text-emerald-400">
-                  <span>{item.category}</span>
+                  <span>{item.category === "Schoolwork" ? "Schoolwork" : "Builds"}</span>
                   <ArrowUpRight className="w-4 h-4 text-neutral-500 group-hover:text-emerald-400 transition-colors" />
                 </div>
                 <h3 className="mt-3 text-lg font-semibold text-white">
@@ -100,7 +100,7 @@ export default function Home() {
               </Link>
             ))}
           </div>
-        </motion.section>
+        </section>
       </div>
 
       {/* Quiet Footer */}

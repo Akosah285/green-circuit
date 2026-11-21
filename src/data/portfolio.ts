@@ -11,6 +11,12 @@ export interface ProjectItem {
   link?: string;
 }
 
+export function projectHref(project: ProjectItem) {
+  const destination =
+    project.category === "Schoolwork" ? "/schoolwork" : "/builds";
+  return `${destination}#${project.slug}`;
+}
+
 export interface JourneyMilestone {
   period: string;
   title: string;
