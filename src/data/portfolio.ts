@@ -50,10 +50,63 @@ export const profile = {
     "Hi, I’m Akwasi. I’m a Software Engineer II at Microsoft in Redmond, with roots in engineering systems, applied mathematics, and leadership at Dartmouth—and a journey that began in Kumasi, Ghana. This is my quiet corner of the web to share what I’m building, revisit standout schoolwork, and document the path.",
   currently:
     "Engineering production software at Microsoft, exploring cloud-native architectures on Azure, and building small, purposeful tools in my personal lab.",
+  portalHeading: "I’m Akwasi.",
+  portalIntro: "A Ghanaian software engineer, curious learner, and soccer fan.",
+  portalNote:
+    "This is my little corner of the internet for sharing what I’m learning and tinkering with.",
+  portalLately:
+    "Working on production software at Microsoft and tinkering with small, purposeful tools on Azure.",
   github: "https://github.com/Akosah285",
   linkedin: "https://www.linkedin.com/in/akwasi-akosah-a39832148/",
   email: "mailto:hello@akwasi.dev",
 };
+
+export const portalSections = [
+  {
+    id: "building",
+    number: "01",
+    menuLabel: "Building",
+    eyebrow: "What I am building",
+    title: "Useful software, kept deliberately small.",
+    description:
+      "Green Circuit is the open project right now: a personal platform built to be clear, observable, and easy to evolve.",
+    tags: ["Next.js", "Azure", "CI/CD"],
+    href: "/builds",
+    action: "Explore the builds",
+  },
+  {
+    id: "learning",
+    number: "02",
+    menuLabel: "Learning",
+    eyebrow: "What I am learning",
+    title: "Cloud systems, engineering judgment, and better questions.",
+    description:
+      "A running shelf for the ideas shaping how I think about resilient software, useful tools, and the craft between them.",
+    tags: ["Cloud architecture", "Engineering systems", "Learning in public"],
+  },
+  {
+    id: "writing",
+    number: "03",
+    menuLabel: "Writing",
+    eyebrow: "What I am writing about",
+    title: "Notes from the work, still taking shape.",
+    description:
+      "No posts yet. This is where I’ll share short, practical notes from the things I build and learn.",
+    tags: ["Essays", "Field notes"],
+  },
+  {
+    id: "beyond",
+    number: "04",
+    menuLabel: "Beyond work",
+    eyebrow: "What I am into",
+    title: "Soccer is never far from the story.",
+    description:
+      "Outside the terminal: Ghana, the game, and the familiar rhythm of learning something new from people and places.",
+    tags: ["Soccer", "Ghana", "Curiosity"],
+    href: "/journey",
+    action: "Get to know me",
+  },
+] as const;
 
 export const projects: ProjectItem[] = [
   {

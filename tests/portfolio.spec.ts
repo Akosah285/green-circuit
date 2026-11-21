@@ -17,11 +17,26 @@ test("portfolio preserves its readable charcoal theme in both system modes", asy
   }
 });
 
-test("portfolio uses its loaded reading and code fonts", async ({ page }) => {
+test("portfolio uses its loaded display, reading and code fonts", async ({ page }) => {
   await page.goto("/");
   await page.evaluate(() => document.fonts.ready);
-  await expect(page.locator("body")).toHaveCSS("font-family", /plus[ _]jakarta[ _]sans/i);
+  await expect(page.locator("body")).toHaveCSS("font-family", /inter/i);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveCSS("font-family", /space[ _]grotesk/i);
   await expect(page.locator("header a").first()).toHaveCSS("font-family", /jetbrains[ _]mono/i);
+});
+
+test("home hydrates without animation mismatch under reduced motion", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") errors.push(message.text());
+  });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  const hero = page.locator("section").filter({ has: page.getByRole("heading", { level: 1 }) });
+  await expect(hero).toHaveCSS("transform", "none");
+  await page.getByRole("link", { name: "Explore Builds", exact: true }).click();
+  await expect(page.getByRole("heading", { name: "Builds", exact: true })).toBeVisible();
+  expect(errors).toEqual([]);
 });
 
 test("compact homepage keeps highlight labels separate and footer links touchable", async ({ page }) => {
