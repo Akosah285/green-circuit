@@ -17,6 +17,30 @@ test("portfolio preserves its readable charcoal theme in both system modes", asy
   }
 });
 
+test("portfolio uses its loaded reading and code fonts", async ({ page }) => {
+  await page.goto("/");
+  await page.evaluate(() => document.fonts.ready);
+  await expect(page.locator("body")).toHaveCSS("font-family", /plus[ _]jakarta[ _]sans/i);
+  await expect(page.locator("header a").first()).toHaveCSS("font-family", /jetbrains[ _]mono/i);
+});
+
+test("compact homepage keeps highlight labels separate and footer links touchable", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 900 });
+  await page.goto("/");
+  const heading = page.getByRole("heading", { name: "Selected Highlights" });
+  const caption = page.getByText("One build, one school project");
+  const headingBounds = await heading.boundingBox();
+  const captionBounds = await caption.boundingBox();
+  expect(headingBounds).not.toBeNull();
+  expect(captionBounds).not.toBeNull();
+  expect(captionBounds!.y).toBeGreaterThanOrEqual(headingBounds!.y + headingBounds!.height);
+  for (const link of await page.locator("footer a").all()) {
+    const bounds = await link.boundingBox();
+    expect(bounds!.height).toBeGreaterThanOrEqual(44);
+  }
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});
+
 test("home highlights open separate build and schoolwork destinations", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("link", { name: /Green Circuit \(Personal Cloud Platform\)/ }).click();
@@ -60,6 +84,10 @@ test("coursework announces expansion and collapses its content", async ({ page }
   const panelId = await disclosure.getAttribute("aria-controls");
   expect(panelId).toBeTruthy();
   await expect(page.locator(`[id="${panelId}"]`)).toBeVisible();
+  await page.keyboard.press("Tab");
+  await disclosure.focus();
+  await expect(disclosure).toHaveCSS("outline-style", "solid");
+  await expect(disclosure).toHaveCSS("outline-offset", "-4px");
   await disclosure.click();
   await expect(disclosure).toHaveAttribute("aria-expanded", "false");
   await expect(page.locator(`[id="${panelId}"]`)).toBeHidden();

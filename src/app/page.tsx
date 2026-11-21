@@ -35,10 +35,10 @@ export default function Home() {
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <Link
               href="/builds"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/25 transition-colors"
+              className="inline-flex min-h-11 items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/25 transition-colors"
             >
               Explore Builds
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4" aria-hidden="true" />
             </Link>
             <Link
               href="/schoolwork"
@@ -49,9 +49,9 @@ export default function Home() {
             </Link>
             <Link
               href="/journey"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium text-neutral-300 hover:text-white bg-neutral-900 border border-neutral-800 hover:border-neutral-700 transition-colors"
+              className="inline-flex min-h-11 items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium text-neutral-300 hover:text-white bg-neutral-900 border border-neutral-800 hover:border-neutral-700 transition-colors"
             >
-              <Compass className="w-4 h-4 text-neutral-400" />
+              <Compass className="w-4 h-4 text-neutral-400" aria-hidden="true" />
               Read My Journey
             </Link>
           </div>
@@ -73,7 +73,7 @@ export default function Home() {
         <section
           className="mt-14"
         >
-          <div className="flex items-center justify-between mb-5">
+          <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between mb-5">
             <h2 className="text-sm font-mono uppercase tracking-wider text-neutral-400">
               Selected Highlights
             </h2>
@@ -89,7 +89,7 @@ export default function Home() {
               >
                 <div className="flex items-center justify-between text-xs font-mono text-emerald-400">
                   <span>{item.category === "Schoolwork" ? "Schoolwork" : "Builds"}</span>
-                  <ArrowUpRight className="w-4 h-4 text-neutral-500 group-hover:text-emerald-400 transition-colors" />
+                  <ArrowUpRight className="w-4 h-4 text-neutral-500 group-hover:text-emerald-400 transition-colors" aria-hidden="true" />
                 </div>
                 <h3 className="mt-3 text-lg font-semibold text-white">
                   {item.title}
@@ -104,20 +104,21 @@ export default function Home() {
       </div>
 
       {/* Quiet Footer */}
-      <footer className="mt-20 border-t border-neutral-800/80 pt-6 text-xs font-mono text-neutral-500 flex flex-wrap items-center justify-between gap-4">
+      <footer className="mt-20 border-t border-neutral-800/80 pt-6 text-xs font-mono text-neutral-400 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
         <span>© 2026 {profile.name}</span>
         <div className="flex items-center gap-5">
           <a
             href={profile.github}
             target="_blank"
             rel="noreferrer"
-            className="hover:text-neutral-300 transition-colors"
+            className="inline-flex min-h-11 items-center hover:text-neutral-300 transition-colors"
           >
             GitHub
+            <span className="sr-only"> (opens in a new tab)</span>
           </a>
           <a
             href={profile.email}
-            className="hover:text-neutral-300 transition-colors"
+            className="inline-flex min-h-11 items-center hover:text-neutral-300 transition-colors"
           >
             Say Hello
           </a>

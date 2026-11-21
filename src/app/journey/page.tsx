@@ -25,7 +25,7 @@ export default function JourneyPage() {
               <h2 className="mt-1 text-lg font-semibold text-white">
                 {step.title}
               </h2>
-              <p className="text-xs font-mono text-neutral-500 mt-0.5">
+              <p className="text-xs font-mono text-neutral-400 mt-0.5">
                 {step.subtitle}
               </p>
               <p className="mt-3 text-sm text-neutral-300 leading-relaxed">
@@ -74,7 +74,7 @@ export default function JourneyPage() {
           </div>
           <a
             href={profile.email}
-            className="px-4 py-2 rounded-xl text-xs font-mono bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/25 transition-colors"
+            className="inline-flex min-h-11 items-center px-4 py-2 rounded-xl text-xs font-mono bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/25 transition-colors"
           >
             Send an Email
           </a>

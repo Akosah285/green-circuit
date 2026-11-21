@@ -26,7 +26,7 @@ export default function AcademicsPage() {
         {/* Major Honors & Scholarships */}
         <div className="mt-12">
           <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-emerald-400 mb-5">
-            <Award className="w-4 h-4" />
+            <Award className="w-4 h-4" aria-hidden="true" />
             <span>Honors &amp; Scholarships</span>
           </div>
 
@@ -57,7 +57,7 @@ export default function AcademicsPage() {
         {/* Faculty Citations */}
         <div className="mt-12">
           <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-emerald-400 mb-5">
-            <Sparkles className="w-4 h-4" />
+            <Sparkles className="w-4 h-4" aria-hidden="true" />
             <span>Faculty Citations for Meritorious Performance</span>
           </div>
 
@@ -84,10 +84,10 @@ export default function AcademicsPage() {
         {/* Coursework Grouped by Discipline */}
         <div className="mt-12">
           <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-emerald-400 mb-2">
-            <BookOpen className="w-4 h-4" />
+            <BookOpen className="w-4 h-4" aria-hidden="true" />
             <span>Selected Coursework by Discipline</span>
           </div>
-          <p className="text-xs text-neutral-500 mb-5">
+          <p className="text-xs text-neutral-400 mb-5">
             Select a discipline below to view individual Dartmouth courses.
           </p>
 
@@ -110,12 +110,12 @@ export default function AcademicsPage() {
                     onClick={() =>
                       setOpenPillar(isOpen ? null : group.pillar)
                     }
-                    className="w-full p-5 text-left flex items-center justify-between gap-4 hover:bg-neutral-900/90 transition-colors"
+                    className="focus-inset w-full p-5 text-left flex items-center justify-between gap-4 hover:bg-neutral-900/90 transition-colors"
                   >
                     <div>
                       <span className="text-base font-semibold text-white">
                         {group.pillar}{" "}
-                        <span className="text-xs font-mono font-normal text-neutral-500">
+                        <span className="text-xs font-mono font-normal text-neutral-400">
                           ({group.courses.length})
                         </span>
                       </span>

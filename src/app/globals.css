@@ -9,19 +9,31 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-jakarta-sans);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-jakarta-sans), Arial, Helvetica, sans-serif;
+}
+
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+a {
+  text-underline-offset: 3px;
 }
 
 :focus-visible {
   outline: 2px solid #6ee7b7;
   outline-offset: 4px;
+}
+
+.focus-inset:focus-visible {
+  outline-offset: -4px;
 }
 
 @media (prefers-reduced-motion: reduce) {
