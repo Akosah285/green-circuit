@@ -1,7 +1,108 @@
+import { Suspense } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { journey, profile, toolkit } from "@/data/portfolio";
+import { JourneyTheme } from "./JourneyTheme";
+import "./JourneyPrototype.css";
 
-export default function JourneyPage() {
+export default async function JourneyPage() {
+  const story = <JourneyStory />;
+
+  if (process.env.NODE_ENV === "development") {
+    const { JourneyPrototype } = await import("./JourneyPrototype");
+    return (
+      <Suspense fallback={story}>
+        <JourneyPrototype story={story}><OriginalJourney /></JourneyPrototype>
+      </Suspense>
+    );
+  }
+
+  return story;
+}
+
+function JourneyStory() {
+  return (
+    <JourneyTheme>
+      <div className="journeyPrototype-content">
+        <header className="journeyPrototype-intro">
+          <p className="journeyPrototype-kicker">A little more about me</p>
+          <h1>The path so far.</h1>
+          <p className="journeyPrototype-introCopy">
+            {profile.portalIntro} Here’s a closer look at the places, work, and learning that brought me here.
+          </p>
+          <Link className="journeyPrototype-backLink" href="/">
+            Back to the homepage <ArrowUpRight size={16} aria-hidden="true" />
+          </Link>
+          <nav aria-label="Jump to section" className="journeyPrototype-quickLinks">
+            <a href="#journey-heading">Journey</a>
+            <a href="#toolkit-heading">Toolkit</a>
+            <a href="#contact-heading">Contact</a>
+          </nav>
+        </header>
+
+        <div className="journeyPrototype-details">
+          <section aria-labelledby="journey-heading" className="journeyPrototype-timeline">
+            <div className="journeyPrototype-sectionHeading">
+              <h2 id="journey-heading">The journey</h2>
+              <span>Work, education, and the places along the way</span>
+            </div>
+            {journey.map((step) => (
+              <article className="journeyPrototype-milestone" key={step.title}>
+                <div className="journeyPrototype-milestoneMeta">
+                  <p className="journeyPrototype-period">{step.period}</p>
+                  <Image className="journeyPrototype-mark" src={step.mark} width={112} height={56} alt="" />
+                </div>
+                <div>
+                  <h3>{step.title}</h3>
+                  <p className="journeyPrototype-location">{step.subtitle}</p>
+                  <p className="journeyPrototype-description">{step.description}</p>
+                </div>
+              </article>
+            ))}
+          </section>
+
+          <section aria-labelledby="toolkit-heading" className="journeyPrototype-toolkit">
+            <div className="journeyPrototype-sectionHeading">
+              <h2 id="toolkit-heading">Technical toolkit</h2>
+              <span>Tools and areas I work with</span>
+            </div>
+            <div className="journeyPrototype-toolkitGroups">
+              {toolkit.map((group) => (
+                <div className="journeyPrototype-toolkitGroup" key={group.category}>
+                  <h3>{group.category}</h3>
+                  <p>{group.items.join(" · ")}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <footer className="journeyPrototype-contact">
+            <div>
+              <h2 id="contact-heading">Let’s compare notes.</h2>
+              <p>Always glad to chat about software, school, or ideas.</p>
+            </div>
+            <a href={profile.email}>Send an email <ArrowUpRight size={16} aria-hidden="true" /></a>
+          </footer>
+          <details className="journeyPrototype-credits">
+            <summary>Image credits</summary>
+            <p>
+              <a href="https://commons.wikimedia.org/wiki/File:Dartmouth_D-Pine.svg">Dartmouth D-Pine by Dartrich</a>
+              {" "}and{" "}
+              <a href="https://commons.wikimedia.org/wiki/File:Opoku_Ware_School_crest.png">Opoku Ware crest by Katakyie777</a>
+              {" "}are licensed under{" "}
+              <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+              Both images are resized and optimized for display; the Dartmouth image was converted from SVG.
+            </p>
+          </details>
+        </div>
+      </div>
+    </JourneyTheme>
+  );
+}
+
+function OriginalJourney() {
   return (
     <main className="min-h-screen max-w-3xl mx-auto px-6 py-16">
       <Navbar />

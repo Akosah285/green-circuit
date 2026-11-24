@@ -22,6 +22,7 @@ export interface JourneyMilestone {
   title: string;
   subtitle: string;
   description: string;
+  mark: string;
 }
 
 export interface HonorItem {
@@ -234,6 +235,7 @@ export const projects: ProjectItem[] = [
 export const journey: JourneyMilestone[] = [
   {
     period: "Dec 2023 – Present",
+    mark: "/journey/microsoft.svg",
     title: "Software Engineer II · Microsoft",
     subtitle: "Redmond, Washington",
     description:
@@ -241,6 +243,7 @@ export const journey: JourneyMilestone[] = [
   },
   {
     period: "Aug 2021 – Nov 2023",
+    mark: "/journey/microsoft.svg",
     title: "Software Engineer · Microsoft",
     subtitle: "Redmond, Washington (Returned after Summer 2020 Internship)",
     description:
@@ -248,6 +251,7 @@ export const journey: JourneyMilestone[] = [
   },
   {
     period: "2017 – 2021",
+    mark: "/journey/dartmouth.png",
     title: "King Leadership Scholar & Engineering · Dartmouth College",
     subtitle: "Hanover, New Hampshire · College Honor List (2017–2021)",
     description:
@@ -255,6 +259,7 @@ export const journey: JourneyMilestone[] = [
   },
   {
     period: "2016",
+    mark: "/journey/opoku-ware.png",
     title: "Valedictorian · Opoku Ware School",
     subtitle: "Kumasi, Ghana · Class of 991 Students",
     description:

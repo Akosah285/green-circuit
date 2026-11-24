@@ -8,6 +8,33 @@ const status = {
   timestamp: "2026-11-21T03:00:00.000Z",
 };
 
+test("journey theme can be switched and remembered", async ({ page }) => {
+  await page.goto("/journey");
+  const journey = page.getByRole("main");
+  const toggle = page.getByRole("button", { name: "Dark mode" });
+  await expect(journey).toHaveAttribute("data-theme", "light");
+  await expect(toggle).toHaveAttribute("aria-pressed", "false");
+
+  await toggle.click();
+  await expect(journey).toHaveAttribute("data-theme", "dark");
+  await expect(toggle).toHaveAttribute("aria-pressed", "true");
+  await page.reload();
+  await expect(journey).toHaveAttribute("data-theme", "dark");
+  await expect(journey).toHaveCSS("background-color", "rgb(16, 28, 23)");
+  await page.getByRole("link", { name: "Toolkit", exact: true }).click();
+  await expect(page).toHaveURL(/#toolkit-heading$/);
+  await page.goto("/builds");
+  await expect(page.getByRole("main")).not.toHaveAttribute("data-theme");
+  await page.goto("/journey");
+  await expect(journey).toHaveAttribute("data-theme", "dark");
+
+  await toggle.focus();
+  await page.keyboard.press("Space");
+  await expect(journey).toHaveAttribute("data-theme", "light");
+  await page.reload();
+  await expect(journey).toHaveAttribute("data-theme", "light");
+});
+
 test("portfolio preserves its readable charcoal theme in both system modes", async ({ page }) => {
   for (const colorScheme of ["light", "dark"] as const) {
     await page.emulateMedia({ colorScheme });
