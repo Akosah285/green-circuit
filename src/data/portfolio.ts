@@ -123,6 +123,23 @@ export const portalSections = [
   },
 ] as const;
 
+export const spacedTrainerProject: ProjectItem = {
+  slug: "spaced-trainer",
+  title: "Spaced Trainer",
+  category: "Work & Builds",
+  period: "2026",
+  summary:
+    "A keyboard-driven flashcard app for practicing with spaced repetition, built in Rust and stored locally with SQLite.",
+  context:
+    "A local study tool for creating decks and reviewing cards without an account or database server.",
+  approach:
+    "Built a terminal interface with Ratatui and Crossterm, using an SM-2 scheduler and SQLite to store cards and review history.",
+  takeaway:
+    "Combining a keyboard-driven workflow with local storage keeps practice accessible without a hosted service.",
+  tags: ["Rust", "Ratatui", "SQLite", "Spaced Repetition"],
+  link: "https://github.com/Akosah285/spaced-learner",
+};
+
 export const projects: ProjectItem[] = [
   {
     slug: "green-circuit",
@@ -140,6 +157,7 @@ export const projects: ProjectItem[] = [
     tags: ["Next.js", "TypeScript", "Azure", "CI/CD"],
     link: "https://github.com/Akosah285/green-circuit",
   },
+  spacedTrainerProject,
   {
     slug: "microsoft-engineering-craft",
     title: "Production Software Engineering at Microsoft",

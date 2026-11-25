@@ -8,6 +8,25 @@ const status = {
   timestamp: "2026-11-21T03:00:00.000Z",
 };
 
+test("Spaced Trainer is featured on the homepage and links to its build and source", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  const project = page.getByRole("link", { name: "Spaced Trainer" });
+  await expect(project).toHaveAttribute("href", "/builds#spaced-trainer");
+  await expect(page.getByRole("link", { name: "View the project on GitHub" })).toHaveAttribute(
+    "href",
+    "https://github.com/Akosah285/engineering-portfolio",
+  );
+  await project.click();
+  await expect(page).toHaveURL(/\/builds#spaced-trainer$/);
+  const entry = page.locator("article#spaced-trainer");
+  await expect(entry.getByRole("heading", { name: "Spaced Trainer" })).toBeVisible();
+  await expect(entry.getByRole("link", { name: /View source/ })).toHaveAttribute(
+    "href",
+    "https://github.com/Akosah285/spaced-learner",
+  );
+});
+
 test("journey theme can be switched and remembered", async ({ page }) => {
   await page.goto("/journey");
   const journey = page.getByRole("main");

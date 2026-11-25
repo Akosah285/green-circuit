@@ -487,6 +487,31 @@ a {
   gap: 28px;
 }
 
+.portal-featured-project {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, .35fr) minmax(0, 1fr);
+  gap: 16px;
+  border-top: 1px solid rgb(16 32 25 / 25%);
+  padding-top: 20px;
+}
+
+.portal-featured-project > p {
+  padding-top: 14px;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.portal-featured-project div > p {
+  max-width: 56ch;
+  margin-top: 8px;
+  color: #43594d;
+  font-size: .9rem;
+  line-height: 1.6;
+}
+
 .portal-tags {
   display: flex;
   flex-wrap: wrap;
@@ -548,6 +573,11 @@ a {
 @media (max-width: 640px) {
   .portal-learning-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .portal-featured-project {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
   }
 }
 

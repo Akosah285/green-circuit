@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Fragment, useEffect, useRef, useState, type CSSProperties } from "react";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
-import { portalSections, profile } from "@/data/portfolio";
+import { portalSections, profile, projectHref, spacedTrainerProject } from "@/data/portfolio";
 
 function PortalSculpture() {
   return (
@@ -343,6 +343,18 @@ export function PersonalPortal() {
                       </Link>
                     )}
                   </div>
+                  {section.id === "building" && (
+                    <div className="portal-featured-project">
+                      <p>Also building</p>
+                      <div>
+                        <Link href={projectHref(spacedTrainerProject)} className="portal-section-link">
+                          {spacedTrainerProject.title}
+                          <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                        </Link>
+                        <p>{spacedTrainerProject.summary}</p>
+                      </div>
+                    </div>
+                  )}
                 </>
               )}
             </div>
